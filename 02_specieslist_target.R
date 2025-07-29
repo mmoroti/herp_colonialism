@@ -89,6 +89,19 @@ df_reptilia_complement <- left_join(
 )
 
 # adicionando os dados complementados no TetrapodTraits
+# Missing data to fill
+#df_reptilia_missing <- left_join(
+#  df_reptilia_fill,
+#  TetraData,
+#  by = c("scientificName" = "Scientific.Name")) %>%
+#  filter(is.na(YearOfDescription)) %>%
+#  distinct()
+#length(df_reptilia_missing$scientificName) # TODO 85 spp to fill
+
+# Export filtered papers:
+#data.table::fwrite(df_reptilia_missing,
+#                   file="data/missing_data_species.csv")
+
 filled_data <- data.table::fread("data/missing_data_species.csv") 
 
 df_reptilia_complement_2 <- left_join(
@@ -105,19 +118,6 @@ df_reptilia_complete <- df_reptilia %>%
 # Ainda faltam preencher dados para 
 length(unique(df_reptilia$scientificName)) - length(unique(df_reptilia_complete$scientificName))
 # 1 especie removida pq era sinonimo apostolepis roncadori
-
-# Missing data to fill
-#df_reptilia_missing <- left_join(
-#  df_reptilia_fill,
-#  TetraData,
-#  by = c("scientificName" = "Scientific.Name")) %>%
-#  filter(is.na(YearOfDescription)) %>%
-#  distinct()
-#length(df_reptilia_missing$scientificName) # TODO 85 spp to fill
-
-# Export filtered papers:
-#data.table::fwrite(df_reptilia_missing,
-#                   file="data/missing_data_species.csv")
 
 # Join groups ----
 df_list_amazonia <- bind_rows(
